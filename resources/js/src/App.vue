@@ -1,9 +1,5 @@
 <template>
     <div id="app">
-      <nav>
-        <router-link to="/">Calibrate</router-link>
-        <router-link to="/hotas">HOTAS</router-link>
-      </nav>
       <router-view></router-view>
     </div>
   </template>

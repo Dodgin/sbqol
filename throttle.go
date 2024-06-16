@@ -33,7 +33,12 @@ func startThrottleWatcher() {
 				val, _ := GetFloat32ValueAtAddress(ThrottleMappings[0].Address)
 				ThrottleMappings[0].Value = val
 				jsonData, _ := json.Marshal(ThrottleMappings)
-				uiTxRxChannel <- string(jsonData)
+				jsonMessage := UiMessage{
+					Type:    "throttle",
+					Payload: string(jsonData),
+				}
+				jsonMessageData, _ := json.Marshal(jsonMessage)
+				uiTxRxChannel <- string(jsonMessageData)
 			}
 		}
 	}()

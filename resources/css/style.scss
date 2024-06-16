@@ -1,10 +1,6 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 256px;
     width: 256px;
-    border: 1px solid #ccc;
     margin: auto;
     position: absolute;
     top: 0;
@@ -27,4 +23,9 @@ body, .container
     align-items: center;
     height: 100vh;
     overflow: hidden;
+}
+
+.cal-big
+{
+    font-size: 2rem;
 }

@@ -1,7 +1,15 @@
 <template>
-    <div>
-        <h1>NEEDS CALIBRATION</h1>
-        <p>Press Alt + ~</p>
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <div class="cal-big">NEEDS CALIBRATION</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="twelve columns">
+                <div>Press Alt + ~</div>
+            </div>
+        </div>        
     </div>
 </template>
 
@@ -10,7 +18,3 @@ export default {
 name: 'Needscalibration'
 }
 </script>
-
-<style scoped>
-/* Add your styles here */
-</style>

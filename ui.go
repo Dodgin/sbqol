@@ -13,6 +13,11 @@ import (
 
 var uiTxRxChannel chan string
 
+type UiMessage struct {
+	Type    string `json:"type"`
+	Payload string `json:"value"`
+}
+
 func UiBootstrap(messageChannel chan string, doneChannel chan bool) {
 
 	uiTxRxChannel = messageChannel

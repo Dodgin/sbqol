@@ -24,7 +24,7 @@ func main() {
 
 	// SDL2 goroutine
 
-	uiTxRxChannel <- "Hello, UI thread!"
+	uiTxRxChannel <- "{\"type\":\"debug\",\"value\":\"Hello, UI thread!\"}"
 
 	fmt.Println("Main thread is doing other work")
 
