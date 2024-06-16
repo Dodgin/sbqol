@@ -29,8 +29,8 @@ func BindHotkeys() {
 			for {
 				robotgo.MilliSleep(250)
 				if len(ThrottleMappings) > 0 {
-					GetFloat32ValueAtAddress(ThrottleMappings[0].Address)
-					//fmt.Println("Fcuforward: ", val)
+					val, _ := GetFloat32ValueAtAddress(ThrottleMappings[0].Address)
+					fmt.Println("Fcuforward: ", val)
 				}
 			}
 		}()

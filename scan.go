@@ -217,7 +217,7 @@ func GetFloat32ValueAtAddress(address uintptr) (float32, error) {
 	}
 
 	// print raw bytes
-	fmt.Printf("Raw bytes: %x\n", buffer)
+	// fmt.Printf("Raw bytes: %x\n", buffer)
 
 	bits := binary.LittleEndian.Uint32(buffer)
 	value = math.Float32frombits(bits)
