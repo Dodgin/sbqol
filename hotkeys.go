@@ -3,11 +3,10 @@ package main
 import (
 	"fmt"
 
-	"github.com/go-vgo/robotgo"
 	hook "github.com/robotn/gohook"
 )
 
-func BindHotkeys() {
+func BindHotkeys(uiTxRxChannel chan string) {
 
 	oneshot := false
 
@@ -25,15 +24,7 @@ func BindHotkeys() {
 		}
 		fmt.Println("End of throttle mappings")
 
-		go func() {
-			for {
-				robotgo.MilliSleep(250)
-				if len(ThrottleMappings) > 0 {
-					val, _ := GetFloat32ValueAtAddress(ThrottleMappings[0].Address)
-					fmt.Println("Fcuforward: ", val)
-				}
-			}
-		}()
+		startThrottleWatcher()
 	})
 
 	s := hook.Start()

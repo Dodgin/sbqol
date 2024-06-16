@@ -19,7 +19,7 @@ func main() {
 
 	// Keyboard goroutine
 	go func() {
-		BindHotkeys()
+		BindHotkeys(uiTxRxChannel)
 	}()
 
 	// SDL2 goroutine

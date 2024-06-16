@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -10,7 +11,12 @@ import (
 	"github.com/lxn/win"
 )
 
+var uiTxRxChannel chan string
+
 func UiBootstrap(messageChannel chan string, doneChannel chan bool) {
+
+	uiTxRxChannel = messageChannel
+
 	// Initialize astilectron
 	ast, err := astilectron.New(nil, astilectron.Options{
 		AppName: "SBQOL",
@@ -50,14 +56,16 @@ func UiBootstrap(messageChannel chan string, doneChannel chan bool) {
 		log.Fatalf("creating window failed: %v", err)
 	}
 
+	window.OpenDevTools()
+
 	// Listen for messages from the main thread
 	go func() {
 		for {
 			select {
 			case msg := <-messageChannel:
-				log.Printf("Received message from main thread: %s", msg)
-				// Handle message (e.g., update UI)
-				// ...
+				if err := window.SendMessage(msg); err != nil {
+					fmt.Println("Error sending message to window:", err)
+				}
 
 			case <-doneChannel:
 				log.Println("Received done signal, exiting UI thread")

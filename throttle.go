@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"math"
 
@@ -16,13 +17,27 @@ const (
 )
 
 type ThrottleMapping struct {
-	Name         string
-	ThrottleAxis ThrottleAxes
-	Address      uintptr
-	Value        float32
+	Name         string       `json:"name"`
+	ThrottleAxis ThrottleAxes `json:"throttleAxis"`
+	Address      uintptr      `json:"address"`
+	Value        float32      `json:"value"`
 }
 
 var ThrottleMappings = []ThrottleMapping{}
+
+func startThrottleWatcher() {
+	go func() {
+		for {
+			robotgo.MilliSleep(50)
+			if len(ThrottleMappings) > 0 {
+				val, _ := GetFloat32ValueAtAddress(ThrottleMappings[0].Address)
+				ThrottleMappings[0].Value = val
+				jsonData, _ := json.Marshal(ThrottleMappings)
+				uiTxRxChannel <- string(jsonData)
+			}
+		}
+	}()
+}
 
 func focusWindow(name string) bool {
 	pids, err := robotgo.FindIds(name)
