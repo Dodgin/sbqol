@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 256px;
+  width: 256px;
+  border: 1px solid #ccc;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+body, .container {
+  background: #292929;
+  color: #dedede;
+  overflow: hidden;
+}
+
+.all {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}/*# sourceMappingURL=style.css.map */
