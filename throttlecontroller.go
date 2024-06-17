@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"sync"
 	"time"
 
@@ -25,7 +24,7 @@ func ThrottleControllerBootstrap(throttleChannel chan float64) {
 			select {
 			case msg := <-throttleChannel:
 				if msg != targetThrottle {
-					fmt.Println("Throttle value received on controller:", msg)
+					//fmt.Println("Throttle value received on controller:", msg)
 					updateTargetThrottle(msg)
 				}
 			}
@@ -56,20 +55,32 @@ func adjustThrottle() {
 		// Calculate the difference between the current value and the target value
 		diff := currentValue - targetValue
 
-		// Adjust throttle only if the difference is outside the deadzone
-		if diff > deadzone {
+		// Check if we should ignore the deadzone
+		ignoreDeadzone := targetValue <= deadzone || targetValue >= 100-deadzone
+
+		// Adjust throttle only if the difference is outside the deadzone,
+		// or if we are near the extreme ends (0 or 100) and should ignore the deadzone
+		if diff > deadzone && !ignoreDeadzone {
 			robotgo.KeyDown("w")
 			robotgo.KeyUp("s")
-		} else if diff < -deadzone {
+		} else if diff < -deadzone && !ignoreDeadzone {
 			robotgo.KeyDown("s")
 			robotgo.KeyUp("w")
+		} else if ignoreDeadzone {
+			if currentValue > targetValue {
+				robotgo.KeyDown("w")
+				robotgo.KeyUp("s")
+			} else if currentValue < targetValue {
+				robotgo.KeyDown("s")
+				robotgo.KeyUp("w")
+			}
 		} else {
 			// Within deadzone, ensure no keys are pressed
 			robotgo.KeyUp("w")
 			robotgo.KeyUp("s")
 		}
 
-		fmt.Println("Current throttle:", currentValue, "Target throttle:", targetValue)
+		//fmt.Println("Current throttle:", currentValue, "Target throttle:", targetValue)
 
 		// Wait a bit before checking again to avoid too rapid toggling
 		time.Sleep(25 * time.Millisecond)
