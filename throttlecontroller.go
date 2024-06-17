@@ -11,6 +11,8 @@ import (
 var targetThrottle float64 = 0.0
 var mu sync.Mutex
 
+const deadzone = 5.0 // Define the deadzone threshold
+
 func ThrottleControllerStartMatching() {
 	// Start the throttle adjustment goroutine
 	go adjustThrottle()
@@ -51,13 +53,20 @@ func adjustThrottle() {
 		currentValue := GetThrottleValue() * 100
 		targetValue := getTargetThrottle()
 
-		if currentValue > targetValue {
+		// Calculate the difference between the current value and the target value
+		diff := currentValue - targetValue
+
+		// Adjust throttle only if the difference is outside the deadzone
+		if diff > deadzone {
 			robotgo.KeyDown("w")
 			robotgo.KeyUp("s")
-		} else if currentValue < targetValue {
+		} else if diff < -deadzone {
 			robotgo.KeyDown("s")
 			robotgo.KeyUp("w")
 		} else {
+			// Within deadzone, ensure no keys are pressed
+			robotgo.KeyUp("w")
+			robotgo.KeyUp("s")
 		}
 
 		fmt.Println("Current throttle:", currentValue, "Target throttle:", targetValue)
