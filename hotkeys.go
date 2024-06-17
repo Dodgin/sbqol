@@ -13,7 +13,8 @@ func BindHotkeys(throttleChannel chan float64, uiTxRxChannel chan string) {
 	hook.Register(hook.KeyDown, []string{"`", "alt"}, func(e hook.Event) {
 		if !oneshot {
 			fmt.Println("alt+` pressed")
-			throttleInit()
+			//throttleInit()
+			joy1Init()
 			oneshot = true
 
 			// print throttle mappings

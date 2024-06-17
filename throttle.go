@@ -91,7 +91,6 @@ func throttleInit() {
 
 		// discard all initial values that are <= 0
 		for _, value := range initialstate {
-			//cast to int and chack if it is greater than 0
 			if math.Floor(float64(value.FloatValue)) > 0 {
 				fmt.Println(value.FloatValue)
 				ThrottleMappings = append(ThrottleMappings, ThrottleMapping{
