@@ -9,6 +9,7 @@ require (
 	github.com/lxn/win v0.0.0-20210218163916-a377121e959e
 	github.com/robotn/gohook v0.41.0
 	github.com/shirou/gopsutil v3.21.11+incompatible
+	github.com/veandco/go-sdl2 v0.4.40
 )
 
 require (
@@ -29,7 +30,6 @@ require (
 	github.com/vcaesar/imgo v0.40.1 // indirect
 	github.com/vcaesar/keycode v0.10.1 // indirect
 	github.com/vcaesar/tt v0.20.1 // indirect
-	github.com/veandco/go-sdl2 v0.4.40 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	golang.org/x/image v0.17.0 // indirect
 	golang.org/x/net v0.26.0 // indirect
