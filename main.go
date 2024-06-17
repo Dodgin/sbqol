@@ -10,6 +10,7 @@ func main() {
 	// UI goroutine
 	uiTxRxChannel := make(chan string)
 	uiCloseChannel := make(chan bool)
+	throttleChannel := make(chan float64, 1)
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
@@ -18,14 +19,16 @@ func main() {
 	}()
 
 	// Keyboard goroutine
-	go func() {
-		BindHotkeys(uiTxRxChannel)
-	}()
+	go BindHotkeys(throttleChannel, uiTxRxChannel)
 
-	// SDL2 goroutine
+	// SDL2 goroutines
+	go SdlBootstrap()
+	go ThrottleControllerBootstrap(throttleChannel)
 
+	// Debug message for testing UI channel
 	uiTxRxChannel <- "{\"type\":\"debug\",\"value\":\"Hello, UI thread!\"}"
 
+	// Debug message for testing main thread
 	fmt.Println("Main thread is doing other work")
 
 	// Exit condition

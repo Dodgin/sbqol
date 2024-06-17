@@ -25,7 +25,7 @@ type ThrottleMapping struct {
 
 var ThrottleMappings = []ThrottleMapping{}
 
-func startThrottleWatcher() {
+func startThrottleWatcher(throttleChannel chan float64, uiTxRxChannel chan string) {
 	go func() {
 		for {
 			robotgo.MilliSleep(50)
@@ -38,7 +38,22 @@ func startThrottleWatcher() {
 					Payload: string(jsonData),
 				}
 				jsonMessageData, _ := json.Marshal(jsonMessage)
+
+				// Notify UI of new value
 				uiTxRxChannel <- string(jsonMessageData)
+
+				// Notify Throttle controller
+				//fmt.Println("Throttle value received on watcher:", val)
+				select {
+				case throttleChannel <- float64(val):
+					// Value sent successfully
+				default:
+					// Channel is full, read and discard the old value
+					<-throttleChannel
+					// Now send the new value
+					throttleChannel <- float64(val)
+				}
+
 			}
 		}
 	}()

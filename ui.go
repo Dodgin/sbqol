@@ -40,7 +40,7 @@ func UiBootstrap(messageChannel chan string, doneChannel chan bool) {
 	window, err := ast.NewWindow(filepath.Join("resources", "index.html"), &astilectron.WindowOptions{
 		Center:      astikit.BoolPtr(false),
 		X:           astikit.IntPtr(int(win.GetSystemMetrics(win.SM_CXSCREEN)) - 256),
-		Y:           astikit.IntPtr(32),
+		Y:           astikit.IntPtr(0),
 		Height:      astikit.IntPtr(256),
 		Width:       astikit.IntPtr(256),
 		Frame:       astikit.BoolPtr(false),
@@ -61,7 +61,7 @@ func UiBootstrap(messageChannel chan string, doneChannel chan bool) {
 		log.Fatalf("creating window failed: %v", err)
 	}
 
-	window.OpenDevTools()
+	//window.OpenDevTools()
 
 	// Listen for messages from the main thread
 	go func() {

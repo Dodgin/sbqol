@@ -6,7 +6,7 @@ import (
 	hook "github.com/robotn/gohook"
 )
 
-func BindHotkeys(uiTxRxChannel chan string) {
+func BindHotkeys(throttleChannel chan float64, uiTxRxChannel chan string) {
 
 	oneshot := false
 
@@ -15,16 +15,19 @@ func BindHotkeys(uiTxRxChannel chan string) {
 			fmt.Println("alt+` pressed")
 			throttleInit()
 			oneshot = true
-		}
 
-		// print throttle mappings
-		fmt.Println("Throttle mappings:")
-		for _, mapping := range ThrottleMappings {
-			fmt.Println(mapping)
-		}
-		fmt.Println("End of throttle mappings")
+			// print throttle mappings
+			fmt.Println("Throttle mappings:")
+			for _, mapping := range ThrottleMappings {
+				fmt.Println(mapping)
+				// print address in hex
+				fmt.Printf("Address: %x\n", mapping.Address)
+			}
+			fmt.Println("End of throttle mappings")
 
-		startThrottleWatcher()
+			startThrottleWatcher(throttleChannel, uiTxRxChannel)
+			ThrottleControllerStartMatching()
+		}
 	})
 
 	s := hook.Start()
