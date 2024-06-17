@@ -12,7 +12,7 @@ Please contact [@Dodgin](https://discord.com/users/112299261734965248) if you ha
 - **Throttle Control**: Enhanced throttle control for better in-game maneuvering.
 
 ## Prerequisites
-- SDL2 - This is a pretty new library (1998) for peripheral interaction that you may have heard of. I have included SDL2.dll but you should not trust random dlls in random repositories. Go download SDL2 and compile it or use theirs.
+- SDL2 - This is a pretty new library (1998) for peripheral interaction that you may have heard of. I have included SDL2.dll but you should not trust random dlls in random repositories. Go download SDL2 >>> [HERE](https://wiki.libsdl.org/SDL2/Installation) <<< and compile it or use theirs.
 - Go - a c developers fever dream that turned into a web language, also good for scripting one-off apps on occasion.
 - A computer - arguable, but suggested.
 
