@@ -20,13 +20,13 @@ func BindHotkeys(throttleChannel chan float64, uiTxRxChannel chan string) {
 			oneshot = true
 
 			// print throttle mappings
-			fmt.Println("Throttle mappings:")
-			for _, mapping := range ThrottleMappings {
-				fmt.Println(mapping)
-				// print address in hex
-				fmt.Printf("Address: %x\n", mapping.Address)
-			}
-			fmt.Println("End of throttle mappings")
+			// fmt.Println("Throttle mappings:")
+			// for _, mapping := range ThrottleMappings {
+			// 	fmt.Println(mapping)
+			// 	// print address in hex
+			// 	fmt.Printf("Address: %x\n", mapping.Address)
+			// }
+			// fmt.Println("End of throttle mappings")
 
 			startThrottleWatcher(throttleChannel, uiTxRxChannel)
 			ThrottleControllerStartMatching()

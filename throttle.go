@@ -102,12 +102,49 @@ func throttleInit() {
 			}
 		}
 
+		robotgo.KeyToggle("shift", "up")
+
+		robotgo.MilliSleep(500)
+
+		// Map strafe up/down
+		robotgo.KeyToggle("up", "down")
+		initialstate, _ = getScanResults()
+		for _, value := range initialstate {
+			if math.Floor(float64(value.FloatValue)) > 0 {
+				fmt.Println(value.FloatValue)
+				ThrottleMappings = append(ThrottleMappings, ThrottleMapping{
+					Name:         "FcuUpDown",
+					ThrottleAxis: ThrottleAxis1,
+					Address:      value.Address,
+					Value:        value.FloatValue,
+				})
+			}
+		}
+		robotgo.KeyToggle("up", "up")
+
+		robotgo.MilliSleep(500)
+
+		// Map strafe left/right
+		robotgo.KeyToggle("right", "down")
+		initialstate, _ = getScanResults()
+		for _, value := range initialstate {
+			if math.Floor(float64(value.FloatValue)) > 0 {
+				fmt.Println(value.FloatValue)
+				ThrottleMappings = append(ThrottleMappings, ThrottleMapping{
+					Name:         "FcuLeftRight",
+					ThrottleAxis: ThrottleAxis1,
+					Address:      value.Address,
+					Value:        value.FloatValue,
+				})
+			}
+		}
+		robotgo.KeyToggle("right", "up")
+
 		// print all throttle mappings
 		for _, mapping := range ThrottleMappings {
 			fmt.Println(mapping)
 		}
 
-		robotgo.KeyToggle("shift", "up")
 	} else {
 		fmt.Println("Failed to focus the window.")
 	}

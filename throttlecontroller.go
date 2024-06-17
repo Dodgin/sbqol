@@ -61,23 +61,23 @@ func adjustThrottle() {
 		// Adjust throttle only if the difference is outside the deadzone,
 		// or if we are near the extreme ends (0 or 100) and should ignore the deadzone
 		if diff > deadzone && !ignoreDeadzone {
-			robotgo.KeyDown("w")
-			robotgo.KeyUp("s")
+			robotgo.KeyDown("shift")
+			robotgo.KeyUp("ctrl")
 		} else if diff < -deadzone && !ignoreDeadzone {
-			robotgo.KeyDown("s")
-			robotgo.KeyUp("w")
+			robotgo.KeyDown("ctrl")
+			robotgo.KeyUp("shift")
 		} else if ignoreDeadzone {
 			if currentValue > targetValue {
-				robotgo.KeyDown("w")
-				robotgo.KeyUp("s")
+				robotgo.KeyDown("shift")
+				robotgo.KeyUp("ctrl")
 			} else if currentValue < targetValue {
-				robotgo.KeyDown("s")
-				robotgo.KeyUp("w")
+				robotgo.KeyDown("ctrl")
+				robotgo.KeyUp("shift")
 			}
 		} else {
 			// Within deadzone, ensure no keys are pressed
-			robotgo.KeyUp("w")
-			robotgo.KeyUp("s")
+			robotgo.KeyUp("shift")
+			robotgo.KeyUp("ctrl")
 		}
 
 		//fmt.Println("Current throttle:", currentValue, "Target throttle:", targetValue)
