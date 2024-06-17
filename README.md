@@ -1,10 +1,6 @@
-Here's a draft for your README file:
+# SBQOL (Starbase Quality of Life Features)
 
----
-
-# sbqol (Starbase Quality of Life Features)
-
-**sbqol** is a collection of quality-of-life features for the game Starbase. This project aims to enhance the player experience by providing additional tools and functionalities not available in the base game.
+**SBQOL** is a collection of quality-of-life features for the game Starbase. This project aims to enhance the player experience by providing additional tools and functionalities not available in the base game.
 
 # All improvements in this tool have been given the verbal OK by Frozenbyte, the developer of Starbase.
 Please contact [@Dodgin](https://discord.com/users/112299261734965248) if you have any concerns.
