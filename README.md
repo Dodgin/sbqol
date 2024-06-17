@@ -5,6 +5,11 @@
 # All improvements in this tool have been given the verbal OK by Frozenbyte, the developer of Starbase.
 Please contact [@Dodgin](https://discord.com/users/112299261734965248) if you have any concerns.
 
+# TL;DR How does it work?
+The application does a series of calibration memory scans of your running starbase program to determine the addresses of the floats (a computer data type) that the levers on your ship show the value of. The program then binds your HOTAS or twin-stick setup so that when you input an action from the joystick or throttle, SBQOL inputs your keybind into the game until the desired value is matched. This way, we are reading but not modifying program memory, which is toe-ing the line for most games.
+
+# But isn't Memory Scanning Bad:tm:?
+In most cases developers would prefer you not do this. In this case, a few floats are necessary to implement a commonly requested user feature. You can view what parts of the application memory are scanned in [scan.go](scan.go).
 
 ## Features
 
