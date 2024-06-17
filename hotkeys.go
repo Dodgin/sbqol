@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/go-vgo/robotgo"
 	hook "github.com/robotn/gohook"
 )
 
@@ -13,7 +14,8 @@ func BindHotkeys(throttleChannel chan float64, uiTxRxChannel chan string) {
 	hook.Register(hook.KeyDown, []string{"`", "alt"}, func(e hook.Event) {
 		if !oneshot {
 			fmt.Println("alt+` pressed")
-			//throttleInit()
+			throttleInit()
+			robotgo.MilliSleep(500)
 			joy1Init()
 			oneshot = true
 

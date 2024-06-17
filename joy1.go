@@ -67,14 +67,26 @@ func joy1Init() {
 		robotgo.Click()
 
 		// Map pitch
-		//robotgo.KeyToggle("w", "down")
+		robotgo.KeyToggle("s", "down")
+		initialstate, _ := getScanResults()
+		for _, value := range initialstate {
+			if math.Floor(float64(value.FloatValue)) > 0 {
+				fmt.Println(value.FloatValue)
+				Joy1Mappings = append(Joy1Mappings, JoyMapping{
+					Name:    "FcuRotationalPitch",
+					JoyAxis: JoyAxis0,
+					Address: value.Address,
+					Value:   value.FloatValue,
+				})
+			}
+		}
+		robotgo.KeyToggle("s", "up")
+
+		robotgo.MilliSleep(500)
 
 		// Map roll
-		robotgo.KeyToggle("q", "down")
-
-		initialstate, _ := getScanResults()
-
-		// discard all initial values that are <= 0
+		robotgo.KeyToggle("d", "down")
+		initialstate, _ = getScanResults()
 		for _, value := range initialstate {
 			if math.Floor(float64(value.FloatValue)) > 0 {
 				fmt.Println(value.FloatValue)
@@ -86,8 +98,25 @@ func joy1Init() {
 				})
 			}
 		}
+		robotgo.KeyToggle("d", "up")
+
+		robotgo.MilliSleep(500)
 
 		// Map yaw
+		robotgo.KeyToggle("e", "down")
+		initialstate, _ = getScanResults()
+		for _, value := range initialstate {
+			if math.Floor(float64(value.FloatValue)) > 0 {
+				fmt.Println(value.FloatValue)
+				Joy1Mappings = append(Joy1Mappings, JoyMapping{
+					Name:    "FcuRotationalYaw",
+					JoyAxis: JoyAxis0,
+					Address: value.Address,
+					Value:   value.FloatValue,
+				})
+			}
+		}
+		robotgo.KeyToggle("e", "up")
 
 		// print all joy mappings
 		for _, mapping := range Joy1Mappings {

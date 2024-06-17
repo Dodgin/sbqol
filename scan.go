@@ -133,32 +133,33 @@ func scanMemory(handle syscall.Handle, memoryRegions []MEMORY_BASIC_INFORMATION,
 }
 
 func getScanResults() ([]FoundValue, error) {
-	procs, err := process.Processes()
-	if err != nil {
-		return nil, fmt.Errorf("error getting processes: %v", err)
-	}
+	if handle == 0 {
+		procs, err := process.Processes()
+		if err != nil {
+			return nil, fmt.Errorf("error getting processes: %v", err)
+		}
 
-	var targetProcess *process.Process
-	for _, proc := range procs {
-		name, err := proc.Name()
-		if err == nil && name == processName {
-			targetProcess = proc
-			break
+		var targetProcess *process.Process
+		for _, proc := range procs {
+			name, err := proc.Name()
+			if err == nil && name == processName {
+				targetProcess = proc
+				break
+			}
+		}
+
+		if targetProcess == nil {
+			return nil, fmt.Errorf("process %s not found", processName)
+		}
+
+		pid := targetProcess.Pid
+		fmt.Printf("Found process %s with PID %d\n", processName, pid)
+
+		handle, err = syscall.OpenProcess(PROCESS_VM_READ|PROCESS_QUERY_INFORMATION|PROCESS_VM_OPERATION, false, uint32(pid))
+		if err != nil {
+			return nil, fmt.Errorf("error opening process: %v", err)
 		}
 	}
-
-	if targetProcess == nil {
-		return nil, fmt.Errorf("process %s not found", processName)
-	}
-
-	pid := targetProcess.Pid
-	fmt.Printf("Found process %s with PID %d\n", processName, pid)
-
-	handle, err = syscall.OpenProcess(PROCESS_VM_READ|PROCESS_QUERY_INFORMATION|PROCESS_VM_OPERATION, false, uint32(pid))
-	if err != nil {
-		return nil, fmt.Errorf("error opening process: %v", err)
-	}
-	//defer syscall.CloseHandle(handle)
 
 	var memoryInfo MEMORY_BASIC_INFORMATION
 	baseAddress := uintptr(0x010000000000)

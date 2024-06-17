@@ -83,7 +83,7 @@ func throttleInit() {
 	if focusWindow("starbase.exe") {
 		// Send w key down
 		robotgo.Click()
-		robotgo.KeyToggle("w", "down")
+		robotgo.KeyToggle("shift", "down")
 
 		initialstate, _ := getScanResults()
 
@@ -107,7 +107,7 @@ func throttleInit() {
 			fmt.Println(mapping)
 		}
 
-		robotgo.KeyToggle("w", "up")
+		robotgo.KeyToggle("shift", "up")
 	} else {
 		fmt.Println("Failed to focus the window.")
 	}
